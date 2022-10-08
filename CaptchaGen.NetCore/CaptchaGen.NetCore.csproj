@@ -1,28 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Authors>yangzhongke(http://www.rupeng.com)</Authors>
-    <Company>Rupeng.com</Company>
-    <Description>Captcha generator for .net core migration from CaptchaGen by yangzhongke from rupeng.com
+	<PropertyGroup>
+		<AssemblyName>CaptchaGen.NetCore.Signed</AssemblyName>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Authors>yangzhongke(http://www.rupeng.com)</Authors>
+		<Company>Rupeng.com</Company>
+		<Description>
+			Captcha generator for .net core migration from CaptchaGen by yangzhongke from rupeng.com
 
-Nuget Install:
+			Nuget Install:
 
-Install-Package CaptchaGen.NetCore
-Example Code:
-    string code = ImageFactory.CreateCode(5);
-    using (FileStream fs = File.OpenWrite("d:/1.jpg"))
-    using (Stream picStream = ImageFactory.BuildImage(code, 50, 100, 20,10))
-    {
-	picStream.CopyTo(fs);
-    }</Description>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://github.com/yangzhongke/CaptchaGen.NetCore</PackageProjectUrl>
-    <Version>1.1.2</Version>
-  </PropertyGroup>
+			Install-Package CaptchaGen.NetCore
+			Example Code:
+			string code = ImageFactory.CreateCode(5);
+			using (FileStream fs = File.OpenWrite("d:/1.jpg"))
+			using (Stream picStream = ImageFactory.BuildImage(code, 50, 100, 20,10))
+			{
+			picStream.CopyTo(fs);
+			}
+		</Description>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageProjectUrl>https://github.com/yangzhongke/CaptchaGen.NetCore</PackageProjectUrl>
+		<Version>1.1.2</Version>
+		<MajorMinorVersion>1.1</MajorMinorVersion>
+		<DocumentationFile>.$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Farayan.NuGet.Publish" Version="1.1.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<Target Name="ResetKeyFile" BeforeTargets="PreBuildEvent">
+		<PropertyGroup>
+			<AssemblyOriginatorKeyFile>public.snk</AssemblyOriginatorKeyFile>
+		</PropertyGroup>
+		<Message Text="AssemblyOriginatorKeyFile: $(AssemblyOriginatorKeyFile)"/>
+	</Target>
 
 </Project>
